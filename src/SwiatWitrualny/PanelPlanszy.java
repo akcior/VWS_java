@@ -14,16 +14,20 @@ import java.util.Set;
 
 public class PanelPlanszy extends JPanel implements ActionListener {
 
-    private HashMap<Organizmy, BufferedImage> obrazki;
+    private HashMap<Gatunki, BufferedImage> obrazki;
     private Dimension rozmiarPlanszy;
     private Dimension rozmiarObrazka;
+    private Dimension rozmiarPanelu;
+    private Point pozycjaPanelu;
     private Swiat swiat;
 
     public PanelPlanszy(int x, int y) {
         super();
-        setPreferredSize(new Dimension(660, 660));
-        setLocation(new Point(1, 1));
-        obrazki = new HashMap<Organizmy, BufferedImage>();
+        rozmiarPanelu = new Dimension(640, 640);
+        pozycjaPanelu = new Point(100,50);
+        setPreferredSize(rozmiarPanelu);
+        setLocation(pozycjaPanelu);
+        obrazki = new HashMap<Gatunki, BufferedImage>();
         rozmiarPlanszy = new Dimension(x, y);
         rozmiarObrazka = new Dimension(32, 32);
         swiat = new Swiat();
@@ -31,7 +35,7 @@ public class PanelPlanszy extends JPanel implements ActionListener {
 
         File plik;
 
-        for (Organizmy o : Organizmy.values()) {
+        for (Gatunki o : Gatunki.values()) {
             BufferedImage obraz;
             plik = new File("assets/animated_" + o.name().toLowerCase() + ".png");
             try {
@@ -45,29 +49,29 @@ public class PanelPlanszy extends JPanel implements ActionListener {
 
     }
 
-    private void NastepnaRunda() {
-        //
-    }
-
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
+        g2d.setColor( new Color(85,210,75));
+        g2d.fillRect(0,0,rozmiarPanelu.width,rozmiarPanelu.height);
         g2d.setColor(new Color(0, 0, 255));
         for (int i = 0; i <= rozmiarPlanszy.width; i++) {
-            g2d.drawLine(i * (rozmiarObrazka.width + 1), 0, i * (rozmiarObrazka.width + 1), 660);
+            g2d.drawLine(i * (rozmiarObrazka.width), 0, i * (rozmiarObrazka.width), 640);
         }
         for (int i = 0; i <= rozmiarPlanszy.height; i++) {
-            g2d.drawLine(0, i * (rozmiarObrazka.height + 1), 660, i * (rozmiarObrazka.height + 1));
+            g2d.drawLine(0, i * (rozmiarObrazka.height), 640, i * (rozmiarObrazka.height));
         }
-
-        //TODO rysowanie odpowiednich obrazkow w odbowiednich miejscach
-        g2d.drawImage(obrazki.get(Organizmy.CZLOWIEK).getSubimage(0, 0, rozmiarObrazka.width, rozmiarObrazka.height), 1, 1, this);
+        for(Organizm o : swiat.getWszystkieOrganizmy())
+        {
+            g2d.drawImage(obrazki.get(o.getGatunek()).getSubimage(0, 0, rozmiarObrazka.width, rozmiarObrazka.height), o.getPozycja().x*(rozmiarObrazka.width) + 1, o.getPozycja().y*rozmiarObrazka.height, this);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand() == "Nowa Runda") {
+        if (e.getActionCommand() == "Nastepna runda") {
+            swiat.nastepnaRunda();
             repaint();
         }
     }

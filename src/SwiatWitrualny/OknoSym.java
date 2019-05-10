@@ -17,9 +17,11 @@ public class OknoSym extends JFrame {
         super("Symulator Wirtualnego Swiata Jakub Lecki 175494");
         setPreferredSize(new Dimension(1280,720));
 
-        swiat = new Swiat();
-        JPanel panelPlanszy = new PanelPlanszy(20,20);
-        add(panelPlanszy);
+        PanelPlanszy panelPlanszy = new PanelPlanszy(20,20);
+        JPanel panelIU = new PanelIU(new Dimension(300,35), panelPlanszy);
+        setLayout(new BorderLayout());
+        add(panelPlanszy,BorderLayout.LINE_START);
+        add(panelIU,BorderLayout.PAGE_END);
 
         pack();
         setVisible(true);

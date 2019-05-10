@@ -17,7 +17,7 @@ public class Symulator {
 
     public void NastepnaRunda()
     {
-        swiat.NastepnaRunda();
+        swiat.nastepnaRunda();
     }
 
     public void ObslugaWydarzen()

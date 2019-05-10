@@ -1,6 +1,6 @@
 package SwiatWitrualny;
 
-public enum Organizmy {
+public enum Gatunki {
     CZLOWIEK,
     WILK,
     OWCA,
