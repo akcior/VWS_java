@@ -1,8 +1,13 @@
 package SwiatWitrualny;
 
+import SwiatWitrualny.Zwierzeta.Czlowiek;
+import javafx.scene.layout.Background;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,17 +16,38 @@ import java.io.IOException;
 public class OknoSym extends JFrame {
 
     private BufferedImage logoImage;
-    private Swiat swiat;
+    public final static Color tlo = new Color(255,250,200);
 
     public OknoSym() {
         super("Symulator Wirtualnego Swiata Jakub Lecki 175494");
         setPreferredSize(new Dimension(1280,720));
+        getContentPane().setBackground(tlo);
 
-        PanelPlanszy panelPlanszy = new PanelPlanszy(20,20);
+        PanelNarratora panelNarratora = new PanelNarratora();
+
+        PanelPlanszy panelPlanszy = new PanelPlanszy(10,10);
+        panelPlanszy.ustawPanelNarratora(panelNarratora);
+
         JPanel panelIU = new PanelIU(new Dimension(300,35), panelPlanszy);
+
         setLayout(new BorderLayout());
         add(panelPlanszy,BorderLayout.LINE_START);
         add(panelIU,BorderLayout.PAGE_END);
+        add(panelNarratora,BorderLayout.LINE_END);
+
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                Czlowiek cz = panelPlanszy.swiat.getCzlowiek();
+                if(cz != null)
+                {
+                    cz.keyTyped(e);
+                }
+                return false;
+            }
+        });
+
+
 
         pack();
         setVisible(true);

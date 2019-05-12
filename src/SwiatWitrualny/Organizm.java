@@ -1,30 +1,35 @@
 package SwiatWitrualny;
 
 import java.awt.*;
+import java.util.Random;
 
 public abstract class Organizm implements Comparable<Organizm> {
     protected Swiat swiat;
-    private Gatunki gatunek;
+    protected Gatunki gatunek;
     protected Point pozycja;
     boolean zyje;
     protected int inicjatywa;
     protected int wiek;
     protected int sila;
     protected int zasieg;
-    protected double szansablok;
+    protected Random orgrand;
 
 
     public Organizm(Swiat swiat, Gatunki gat, Point poz) {
         this.zyje = true;
         this.swiat = swiat;
         this.gatunek = gat;
-        pozycja = poz;
+        this.pozycja = poz;
+        this. orgrand = new Random();
         this.wiek = 0;
-        sila = 0;
-        zasieg = 1;
-        szansablok = 0;
+        this.sila = 0;
+        this.zasieg = 1;
     }
 
+    public boolean czyZyje()
+    {
+        return zyje;
+    }
     public Point getPozycja() {
         return pozycja;
     }
@@ -47,6 +52,7 @@ public abstract class Organizm implements Comparable<Organizm> {
     public Gatunki getGatunek() {
         return gatunek;
     }
+    public int getWiek() { return wiek; }
 
     abstract public boolean akcja();
 
@@ -54,7 +60,9 @@ public abstract class Organizm implements Comparable<Organizm> {
 
     protected boolean sprobujSieRozmnozyc() { return true; }
 
-    protected boolean zablokujAtak() { return false; }
+    protected boolean zablokujAtak(Organizm o) {
+       return false;
+    }
 
     protected void rozmnozSie() {
         Point p = swiat.getLosowyWolnyKierunkWokol(pozycja);
@@ -63,6 +71,11 @@ public abstract class Organizm implements Comparable<Organizm> {
             p.translate(pozycja.x,pozycja.y);
             swiat.stworzOrganizm(gatunek,p);
         }
+    }
+
+    public boolean silniejszyOd(Organizm o)
+    {
+        return sila >= o.getSila();
     }
 
     public void umrzyj() {
@@ -79,8 +92,10 @@ public abstract class Organizm implements Comparable<Organizm> {
 
     @Override
     public String toString() {
-        return gatunek.name() + " na pozycji " + pozycja.toString();
+        return gatunek.name().charAt(0)+gatunek.name().substring(1).toLowerCase() + " na pozycji X:" + pozycja.x + " Y:"+pozycja.y;
     }
+
+    abstract public String plec();
 
 
 }

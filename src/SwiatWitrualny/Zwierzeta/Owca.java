@@ -14,4 +14,10 @@ public class Owca extends Zwierze {
         sila = 4;
         inicjatywa = 4;
     }
+
+    @Override
+    public String plec()
+    {
+        return "a";
+    }
 }

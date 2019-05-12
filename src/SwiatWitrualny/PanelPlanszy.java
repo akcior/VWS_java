@@ -9,8 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 public class PanelPlanszy extends JPanel implements ActionListener {
 
@@ -19,7 +17,7 @@ public class PanelPlanszy extends JPanel implements ActionListener {
     private Dimension rozmiarObrazka;
     private Dimension rozmiarPanelu;
     private Point pozycjaPanelu;
-    private Swiat swiat;
+    public final Swiat swiat = new Swiat();
 
     public PanelPlanszy(int x, int y) {
         super();
@@ -29,9 +27,10 @@ public class PanelPlanszy extends JPanel implements ActionListener {
         setLocation(pozycjaPanelu);
         obrazki = new HashMap<Gatunki, BufferedImage>();
         rozmiarPlanszy = new Dimension(x, y);
-        rozmiarObrazka = new Dimension(32, 32);
-        swiat = new Swiat();
-        //TODO zmiana rozmiaru obrazka w zaleznosci od rozmiaru planszy
+        rozmiarObrazka = new Dimension(rozmiarPanelu.width/rozmiarPlanszy.width, rozmiarPanelu.height/rozmiarPlanszy.height);
+        swiat.zmienRozmiar(new Dimension(x,y));
+        //swiat = new Swiat(new Dimension(x,y));
+
 
         File plik;
 
@@ -49,13 +48,18 @@ public class PanelPlanszy extends JPanel implements ActionListener {
 
     }
 
+    public void ustawPanelNarratora(PanelNarratora p)
+    {
+        swiat.narrator.ustawPoleTekstowe(p.getPoleTekstowe());
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.setColor( new Color(85,210,75));
         g2d.fillRect(0,0,rozmiarPanelu.width,rozmiarPanelu.height);
-        g2d.setColor(new Color(0, 0, 255));
+        g2d.setColor(new Color(85, 255, 75));
         for (int i = 0; i <= rozmiarPlanszy.width; i++) {
             g2d.drawLine(i * (rozmiarObrazka.width), 0, i * (rozmiarObrazka.width), 640);
         }
@@ -64,7 +68,7 @@ public class PanelPlanszy extends JPanel implements ActionListener {
         }
         for(Organizm o : swiat.getWszystkieOrganizmy())
         {
-            g2d.drawImage(obrazki.get(o.getGatunek()).getSubimage(0, 0, rozmiarObrazka.width, rozmiarObrazka.height), o.getPozycja().x*(rozmiarObrazka.width) + 1, o.getPozycja().y*rozmiarObrazka.height, this);
+            g2d.drawImage(obrazki.get(o.getGatunek()).getSubimage(0, 0, 32, 32).getScaledInstance(rozmiarObrazka.width, rozmiarObrazka.height, Image.SCALE_DEFAULT), o.getPozycja().x*(rozmiarObrazka.width) + 1, o.getPozycja().y*rozmiarObrazka.height, this);
         }
     }
 

@@ -15,4 +15,9 @@ public class Wilk extends Zwierze {
         inicjatywa = 5;
     }
 
+    @Override
+    public String plec()
+    {
+        return "";
+    }
 }

@@ -1,5 +1,7 @@
 import SwiatWitrualny.Swiat;
 
+import java.awt.*;
+
 public class Symulator {
 
     private Swiat swiat;
@@ -7,7 +9,7 @@ public class Symulator {
 
     public Symulator(int x, int y)
     {
-        swiat = new Swiat();
+        swiat = new Swiat(new Dimension(x,y));
         dziala = true;
     }
 

@@ -18,6 +18,7 @@ public class PanelIU extends JPanel {
         przyciski.add(new JButton("Zapisz gre"));
         przyciski.add(new JButton("Nowa Gra"));
 
+
         for(int i =0;i<przyciski.size();i++)
         {
             przyciski.get(i).addActionListener(plansza);
