@@ -1,7 +1,6 @@
 package SwiatWitrualny;
 
 import javax.swing.*;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class Narrator {
@@ -25,6 +24,25 @@ public class Narrator {
     {
         wydarzenia.add(o1.toString() + " rozmnozyl"+o1.plec()+" sie.");
     }
+
+    public void orgUzylMocy(Organizm o, String nazwa)
+    {
+        wydarzenia.add(o.toString() + " uzyl mocy: "+ nazwa);
+    }
+    public void mocy_pozostalo(String nazwa, int pozostalo)
+    {
+        wydarzenia.add("Mocy " + nazwa + " pozostało: "+ pozostalo+ " rund.");
+    }
+
+    public void mocOdnowiSieZa(String nazwa, int odnowienie)
+    {
+        wydarzenia.add("Moc " + nazwa + " odnowi się za: " + odnowienie+ " rund.");
+    }
+    public void mocOdnowiona(String nazwa)
+    {
+        wydarzenia.add("Moc " + nazwa + " zostala odnowiona.");
+    }
+
     public void opowiadaj()
     {
         poleTekstowe.setText("");

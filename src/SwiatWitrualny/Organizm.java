@@ -1,6 +1,9 @@
 package SwiatWitrualny;
 
+import SwiatWitrualny.Rosliny.Barszcz_sosnowskiego;
+
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Organizm implements Comparable<Organizm> {
@@ -79,6 +82,19 @@ public abstract class Organizm implements Comparable<Organizm> {
     public boolean silniejszyOd(Organizm o)
     {
         return sila >= o.getSila();
+    }
+
+    public void zabijWszystkichWokol()
+    {
+        ArrayList<Organizm> orgs = swiat.getWszystkieOrganizmyWokol(pozycja);
+        for(Organizm o : orgs)
+        {
+            if(o.getGatunek().equals(gatunek))
+                continue;
+
+            o.umrzyj();
+            swiat.narrator.orgUmarlPrzezOrg(o,this);
+        }
     }
 
     public void umrzyj() {

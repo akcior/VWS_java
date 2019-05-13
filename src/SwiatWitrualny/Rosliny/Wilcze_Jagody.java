@@ -7,22 +7,13 @@ import SwiatWitrualny.Swiat;
 
 import java.awt.*;
 
-public class Barszcz_sosnowskiego extends Roslina {
+public class Wilcze_Jagody extends Roslina {
 
-    public Barszcz_sosnowskiego(Swiat s, Point p)
+    public Wilcze_Jagody(Swiat s, Point p)
     {
-        super(s, Gatunki.BARSZCZ_SOSNOWSKIEGO, p);
-        szansarozmn = 0.1;
-
+        super(s, Gatunki.WILCZE_JAGODY, p);
     }
 
-    @Override
-    public boolean akcja()
-    {
-        super.akcja();
-        zabijWszystkichWokol();
-        return true;
-    }
     @Override
     public boolean kolizja(Organizm o)
     {
@@ -33,8 +24,6 @@ public class Barszcz_sosnowskiego extends Roslina {
     @Override
     public String plec()
     {
-        return "";
+        return "y";
     }
-
-
 }

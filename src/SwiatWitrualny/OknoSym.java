@@ -36,10 +36,10 @@ public class OknoSym extends JFrame {
             @Override
             public boolean dispatchKeyEvent(KeyEvent e) {
                 Czlowiek cz = panelPlanszy.swiat.getCzlowiek();
+
                 if(cz != null)
-                {
                     cz.keyTyped(e);
-                }
+
                 return false;
             }
         });

@@ -57,8 +57,16 @@ public abstract class Zwierze extends Organizm {
     }
 
     public boolean zrobUnik() {
-        Random rand = new Random();
-        return rand.nextDouble() < szansaUcieczki;
+
+        if(orgrand.nextDouble() < szansaUcieczki)
+        {
+            Point p = swiat.getLosowyWolnyKierunkWokol(pozycja);
+            if(p.equals( new Point(0,0)))
+                return false;
+            pozycja.translate(p.x,p.y);
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -1,9 +1,6 @@
 package SwiatWitrualny;
 
-import SwiatWitrualny.Rosliny.Barszcz_sosnowskiego;
-import SwiatWitrualny.Rosliny.Guarana;
-import SwiatWitrualny.Rosliny.Mlecz;
-import SwiatWitrualny.Rosliny.Trawa;
+import SwiatWitrualny.Rosliny.*;
 import SwiatWitrualny.Zwierzeta.*;
 
 import java.awt.*;
@@ -26,16 +23,16 @@ public class Swiat implements ActionListener {
         narrator = new Narrator();
         stworzOrganizm(Gatunki.WILK,new Point(0,0));
         stworzOrganizm(Gatunki.WILK,new Point(1,0));
-        stworzOrganizm(Gatunki.WILK,new Point(0,1));
         stworzOrganizm(Gatunki.OWCA, new Point(2,3));
         stworzOrganizm(Gatunki.LIS, new Point(5,8));
-        stworzOrganizm(Gatunki.ANTYLOPA, new Point(1,8));
+        stworzOrganizm(Gatunki.ANTYLOPA, new Point(9,8));
         stworzOrganizm(Gatunki.ZOLW, new Point(8,2));
         stworzOrganizm(Gatunki.CZLOWIEK,new Point(5,5));
         stworzOrganizm(Gatunki.TRAWA, new Point(4,4));
         stworzOrganizm(Gatunki.MLECZ, new Point(7,7));
         stworzOrganizm(Gatunki.GUARANA, new Point(8,4));
         stworzOrganizm(Gatunki.BARSZCZ_SOSNOWSKIEGO, new Point(1,6));
+        stworzOrganizm(Gatunki.WILCZE_JAGODY, new Point(7,6));
 
     }
     public Swiat(Dimension rozmiar) {
@@ -113,6 +110,10 @@ public class Swiat implements ActionListener {
                 break;
             case BARSZCZ_SOSNOWSKIEGO:
                 organizmy.add(new Barszcz_sosnowskiego(this, poz));
+                break;
+            case WILCZE_JAGODY:
+                organizmy.add(new Wilcze_Jagody(this,poz));
+                break;
         }
         return true;
     }
