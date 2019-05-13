@@ -1,5 +1,6 @@
 package SwiatWitrualny;
 
+import SwiatWitrualny.Rosliny.Barszcz_sosnowskiego;
 import SwiatWitrualny.Rosliny.Guarana;
 import SwiatWitrualny.Rosliny.Mlecz;
 import SwiatWitrualny.Rosliny.Trawa;
@@ -34,7 +35,7 @@ public class Swiat implements ActionListener {
         stworzOrganizm(Gatunki.TRAWA, new Point(4,4));
         stworzOrganizm(Gatunki.MLECZ, new Point(7,7));
         stworzOrganizm(Gatunki.GUARANA, new Point(8,4));
-
+        stworzOrganizm(Gatunki.BARSZCZ_SOSNOWSKIEGO, new Point(1,6));
 
     }
     public Swiat(Dimension rozmiar) {
@@ -74,7 +75,7 @@ public class Swiat implements ActionListener {
         {
             o = organizmy.get(i);
             o.akcja();
-            System.out.println(o.getGatunek().toString() + " " + o.getPozycja().toString());
+            //System.out.println(o.getGatunek().toString() + " " + o.getPozycja().toString());
         }
         narrator.opowiadaj();
 
@@ -109,6 +110,9 @@ public class Swiat implements ActionListener {
                 break;
             case GUARANA:
                 organizmy.add(new Guarana(this,poz));
+                break;
+            case BARSZCZ_SOSNOWSKIEGO:
+                organizmy.add(new Barszcz_sosnowskiego(this, poz));
         }
         return true;
     }
