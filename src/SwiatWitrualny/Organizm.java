@@ -13,6 +13,7 @@ public abstract class Organizm implements Comparable<Organizm> {
     protected int sila;
     protected int zasieg;
     protected Random orgrand;
+    protected double szansarozmn;
 
 
     public Organizm(Swiat swiat, Gatunki gat, Point poz) {
@@ -20,10 +21,11 @@ public abstract class Organizm implements Comparable<Organizm> {
         this.swiat = swiat;
         this.gatunek = gat;
         this.pozycja = poz;
-        this. orgrand = new Random();
+        this.orgrand = new Random();
         this.wiek = 0;
         this.sila = 0;
         this.zasieg = 1;
+        this.szansarozmn = 1;
     }
 
     public boolean czyZyje()
@@ -58,7 +60,7 @@ public abstract class Organizm implements Comparable<Organizm> {
 
     abstract protected boolean kolizja(Organizm o);
 
-    protected boolean sprobujSieRozmnozyc() { return true; }
+    protected boolean sprobujSieRozmnozyc() { return orgrand.nextDouble() < szansarozmn; }
 
     protected boolean zablokujAtak(Organizm o) {
        return false;
@@ -70,6 +72,7 @@ public abstract class Organizm implements Comparable<Organizm> {
         {
             p.translate(pozycja.x,pozycja.y);
             swiat.stworzOrganizm(gatunek,p);
+            swiat.narrator.orgRozmnozylSie(this);
         }
     }
 

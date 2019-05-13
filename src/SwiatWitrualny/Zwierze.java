@@ -83,7 +83,7 @@ public abstract class Zwierze extends Organizm {
         if (org instanceof Zwierze) {
             Zwierze o = (Zwierze) org;
             if (gatunek.equals(o.getGatunek())) {
-                if (wiek > 5 && o.getWiek() < 5) {
+                if (wiek > 5 && o.getWiek() > 5) {
                     if (sprobujSieRozmnozyc()) {
                         rozmnozSie();
                     }
@@ -94,7 +94,7 @@ public abstract class Zwierze extends Organizm {
                     if (!o.zrobUnik()) {
                         if (!o.zablokujAtak(this)) {
                             o.umrzyj();
-                            swiat.narrator.ogrUmarlPrzezOrg(o,this);
+                            swiat.narrator.orgUmarlPrzezOrg(o,this);
                             return true;
                         }
                         return false;
@@ -102,7 +102,7 @@ public abstract class Zwierze extends Organizm {
                     return true;
                 } else if (!zablokujAtak(o)) {
                     zyje = false;
-                    swiat.narrator.ogrUmarlPrzezOrg(this,o);
+                    swiat.narrator.orgUmarlPrzezOrg(this,o);
                     return false;
                 }
 
@@ -110,10 +110,11 @@ public abstract class Zwierze extends Organizm {
         } else if (org instanceof Roslina) {
             Roslina r = (Roslina) org;
             if (r.kolizja(this)) {
+                swiat.narrator.orgUmarlPrzezOrg(r,this);
                 return true;
             } else {
                 zyje = false;
-                swiat.narrator.ogrUmarlPrzezOrg(this,r);
+                swiat.narrator.orgUmarlPrzezOrg(this,r);
                 return false;
             }
         }

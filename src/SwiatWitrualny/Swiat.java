@@ -1,5 +1,8 @@
 package SwiatWitrualny;
 
+import SwiatWitrualny.Rosliny.Guarana;
+import SwiatWitrualny.Rosliny.Mlecz;
+import SwiatWitrualny.Rosliny.Trawa;
 import SwiatWitrualny.Zwierzeta.*;
 
 import java.awt.*;
@@ -21,11 +24,18 @@ public class Swiat implements ActionListener {
         rand = new Random();
         narrator = new Narrator();
         stworzOrganizm(Gatunki.WILK,new Point(0,0));
+        stworzOrganizm(Gatunki.WILK,new Point(1,0));
+        stworzOrganizm(Gatunki.WILK,new Point(0,1));
         stworzOrganizm(Gatunki.OWCA, new Point(2,3));
         stworzOrganizm(Gatunki.LIS, new Point(5,8));
         stworzOrganizm(Gatunki.ANTYLOPA, new Point(1,8));
         stworzOrganizm(Gatunki.ZOLW, new Point(8,2));
         stworzOrganizm(Gatunki.CZLOWIEK,new Point(5,5));
+        stworzOrganizm(Gatunki.TRAWA, new Point(4,4));
+        stworzOrganizm(Gatunki.MLECZ, new Point(7,7));
+        stworzOrganizm(Gatunki.GUARANA, new Point(8,4));
+
+
     }
     public Swiat(Dimension rozmiar) {
         rozmiarSwiata = rozmiar;
@@ -91,6 +101,14 @@ public class Swiat implements ActionListener {
             case CZLOWIEK:
                 organizmy.add(new Czlowiek(this,poz));
                 break;
+            case TRAWA:
+                organizmy.add(new Trawa(this, poz));
+                break;
+            case MLECZ:
+                organizmy.add(new Mlecz(this,poz));
+                break;
+            case GUARANA:
+                organizmy.add(new Guarana(this,poz));
         }
         return true;
     }
@@ -116,7 +134,13 @@ public class Swiat implements ActionListener {
                 if(!(i == 0 && j == 0)) {
                     k = p.getLocation();
                     k.translate(i, j);
-                    o = getOrganizmNaPozycji(k);
+                    try {
+                        o = getOrganizmNaPozycji(k);
+                    }
+                    catch(IndexOutOfBoundsException e)
+                    {
+                        continue;
+                    }
                     if (o.size() > 0) ow.add(o.get(0));
                 }
             }

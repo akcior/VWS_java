@@ -17,13 +17,13 @@ public class Narrator {
         poleTekstowe = t;
     }
 
-    public void ogrUmarlPrzezOrg(Organizm o1, Organizm o2)
+    public void orgUmarlPrzezOrg(Organizm o1, Organizm o2)
     {
         wydarzenia.add(o1.toString() + " umarl"+o1.plec()+" przez " + o2.toString() );
     }
-    public void orgRozmnozylSieZOrg(Organizm o1, Organizm o2)
+    public void orgRozmnozylSie(Organizm o1)
     {
-        wydarzenia.add(o1.toString() + " rozmnozyl"+o1.plec()+" sie z " + o2.toString());
+        wydarzenia.add(o1.toString() + " rozmnozyl"+o1.plec()+" sie.");
     }
     public void opowiadaj()
     {
