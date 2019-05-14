@@ -42,17 +42,17 @@ public abstract class Organizm implements Comparable<Organizm> {
         swiat = s;
         gatunek = gat;
         pozycja.x = in.nextInt();
-        //in.nextLine();
+        in.nextLine();
         pozycja.y = in.nextInt();
-       // in.nextLine();
+        in.nextLine();
         wiek = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
         sila = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
         zasieg = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
         szansarozmn = in.nextDouble();
-//        in.nextLine();
+        in.nextLine();
     }
 
     public boolean czyZyje()
@@ -83,6 +83,7 @@ public abstract class Organizm implements Comparable<Organizm> {
     }
 
     public int getWiek() { return wiek; }
+    public void addWiek(int w) { wiek+= w;}
 
     abstract public boolean akcja();
 

@@ -14,10 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class PanelPlanszy extends JPanel implements ActionListener, MouseListener, Serializable {
@@ -135,9 +133,12 @@ public class PanelPlanszy extends JPanel implements ActionListener, MouseListene
             if(odczyt.exists())
             {
                 try {
-                    Scanner in = new Scanner(odczyt);
+                    Scanner in = new Scanner(odczyt).useLocale(Locale.ENGLISH);
                     swiat.wczytaj(in);
+                    swiat.narrator.wczytanoGre(nazwa);
+                    swiat.narrator.opowiadaj();
                     rozmiarPlanszy = swiat.getRozmiarSwiata();
+                    rozmiarObrazka = new Dimension(rozmiarPanelu.width / rozmiarPlanszy.width, rozmiarPanelu.height / rozmiarPlanszy.height);
                 }
                 catch(IOException iex)
                 {

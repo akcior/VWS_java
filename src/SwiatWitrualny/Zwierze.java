@@ -20,7 +20,7 @@ public abstract class Zwierze extends Organizm {
 
         super(s,g,in);
         szansaUcieczki =in.nextDouble();
-//        in.nextLine();
+        in.nextLine();
     }
 
     protected boolean zrobRuch() {
@@ -28,9 +28,15 @@ public abstract class Zwierze extends Organizm {
         if (kier.equals(new Point(0, 0)))
             return false;
 
-        kier.translate(pozycja.x, pozycja.y);
-        ArrayList<Organizm> o = swiat.getOrganizmNaPozycji(kier);
+        ArrayList<Organizm> o;
+        try {
+            kier.translate(pozycja.x, pozycja.y);
+            o = swiat.getOrganizmNaPozycji(kier);
 
+        }catch(IndexOutOfBoundsException inex)
+        {
+            return false;
+        }
         if (o.size() == 0) {
             pozycja.move(kier.x, kier.y);
             return true;
@@ -81,7 +87,7 @@ public abstract class Zwierze extends Organizm {
     @Override
     public boolean akcja() {
         wiek++;
-        if (zyje && wiek > 1) {
+        if (zyje) {
             for (int i = 0; i < zasieg; i++) {
                 if (!zrobRuch())
                     break;

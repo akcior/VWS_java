@@ -43,6 +43,11 @@ public class Narrator {
         wydarzenia.add("Moc " + nazwa + " zostala odnowiona.");
     }
 
+    public void wczytanoGre(String nazwa)
+    {
+        wydarzenia.add("Wczytano gre o nazwie: "+ nazwa);
+    }
+
     public void opowiadaj()
     {
         poleTekstowe.setText("");

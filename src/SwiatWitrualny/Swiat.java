@@ -15,7 +15,7 @@ public class Swiat{
     private Dimension rozmiarSwiata;
     private ArrayList<Organizm> organizmy;
     private Random rand;
-    public static Narrator narrator = new Narrator();
+    public final Narrator narrator = new Narrator();
 
     public Swiat()
     {
@@ -40,7 +40,6 @@ public class Swiat{
         rozmiarSwiata = rozmiar;
         organizmy = new ArrayList<Organizm>();
         rand = new Random();
-        narrator = new Narrator();
         stworzOrganizm(Gatunki.WILK,new Point(0,0));
         stworzOrganizm(Gatunki.OWCA, new Point(2,3));
         stworzOrganizm(Gatunki.LIS, new Point(5,8));
@@ -72,7 +71,10 @@ public class Swiat{
         for(int i =0;i< organizmy.size();i++)
         {
             o = organizmy.get(i);
-            o.akcja();
+            if(o.getWiek() > 0)
+                o.akcja();
+            else
+                o.addWiek(1);
             //System.out.println(o.getGatunek().toString() + " " + o.getPozycja().toString());
         }
         narrator.opowiadaj();

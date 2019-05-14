@@ -38,18 +38,19 @@ public class Czlowiek extends Zwierze implements KeyListener {
     public Czlowiek(Swiat s, Scanner in)
     {
         super(s,Gatunki.CZLOWIEK,in);
+        nastRuch = new Point();
         nastRuch.x = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
         nastRuch.y = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
         moc_czas_trwania = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
         moc_czas_odnowy = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
         moc_pozostaly_czas_trwania = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
         moc_pozostaly_czas_odnowy = in.nextInt();
-//        in.nextLine();
+        in.nextLine();
     }
 
     @Override
@@ -139,7 +140,6 @@ public class Czlowiek extends Zwierze implements KeyListener {
                 nastRuch.move(1,0);
                 break;
         }
-        System.out.println(nastRuch.toString());
     }
 
     @Override
