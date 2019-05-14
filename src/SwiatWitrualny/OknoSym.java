@@ -6,26 +6,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 
 public class OknoSym extends JFrame {
 
     private BufferedImage logoImage;
     public final static Color tlo = new Color(255,250,200);
+    private PanelPlanszy panelPlanszy;
+    private JPanel panelIU;
+    PanelNarratora panelNarratora;
 
     public OknoSym() {
         super("Symulator Wirtualnego Swiata Jakub Lecki 175494");
         setPreferredSize(new Dimension(1280,720));
         getContentPane().setBackground(tlo);
 
-        PanelNarratora panelNarratora = new PanelNarratora();
+        panelNarratora = new PanelNarratora();
 
-        PanelPlanszy panelPlanszy = new PanelPlanszy(10,10);
+        panelPlanszy = new PanelPlanszy(10,10);
         panelPlanszy.ustawPanelNarratora(panelNarratora);
 
-        JPanel panelIU = new PanelIU(new Dimension(300,35), panelPlanszy);
+        panelIU = new PanelIU(new Dimension(300,35), panelPlanszy);
 
         setLayout(new BorderLayout());
         add(panelPlanszy,BorderLayout.LINE_START);
@@ -60,4 +62,5 @@ public class OknoSym extends JFrame {
 
         setIconImage(logoImage);
     }
+
 }

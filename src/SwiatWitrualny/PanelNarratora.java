@@ -27,7 +27,7 @@ public class PanelNarratora extends JScrollPane {
         getViewport().setBackground(OknoSym.tlo);
         setBorder(new LineBorder(OknoSym.tlo));
         getViewport().add(poleTekstowe);
-        setPreferredSize( new Dimension(600,100));
+        setPreferredSize( new Dimension(500,100));
     }
     public JTextArea getPoleTekstowe()
     {

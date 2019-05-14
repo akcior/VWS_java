@@ -6,6 +6,7 @@ import SwiatWitrualny.Roslina;
 import SwiatWitrualny.Swiat;
 
 import java.awt.*;
+import java.util.Scanner;
 
 public class Guarana extends Roslina {
 
@@ -22,6 +23,10 @@ public class Guarana extends Roslina {
         return true;
     }
 
+    public Guarana(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.GUARANA,in);
+    }
 
     @Override
     public String plec()

@@ -12,29 +12,31 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Scanner;
 
-public class PanelPlanszy extends JPanel implements ActionListener, MouseListener {
+public class PanelPlanszy extends JPanel implements ActionListener, MouseListener, Serializable {
 
     private HashMap<Gatunki, BufferedImage> obrazki;
     private BufferedImage celownik;
     private Dimension rozmiarPlanszy;
     private Dimension rozmiarObrazka;
     private Dimension rozmiarPanelu;
-    private Point pozycjaPanelu;
     public final Swiat swiat = new Swiat();
 
     public PanelPlanszy(int x, int y) {
         super();
         rozmiarPanelu = new Dimension(640, 640);
-        pozycjaPanelu = new Point(100, 50);
         setPreferredSize(rozmiarPanelu);
-        setLocation(pozycjaPanelu);
-        obrazki = new HashMap<Gatunki, BufferedImage>();
+        obrazki = new HashMap<>();
         rozmiarPlanszy = new Dimension(x, y);
         rozmiarObrazka = new Dimension(rozmiarPanelu.width / rozmiarPlanszy.width, rozmiarPanelu.height / rozmiarPlanszy.height);
         swiat.zmienRozmiar(new Dimension(x, y));
-        //swiat = new Swiat(new Dimension(x,y));
 
 
         File plik;
@@ -91,7 +93,7 @@ public class PanelPlanszy extends JPanel implements ActionListener, MouseListene
             swiat.nastepnaRunda();
             repaint();
         }
-        if(e.getActionCommand() == "Uzyj supermocy")
+        else if(e.getActionCommand() == "Uzyj supermocy")
         {
             Czlowiek cz = swiat.getCzlowiek();
             if(cz != null)
@@ -100,6 +102,46 @@ public class PanelPlanszy extends JPanel implements ActionListener, MouseListene
                 {
                     swiat.narrator.orgUzylMocy(cz,"Całopalenie");
                     swiat.narrator.opowiadaj();
+                }
+            }
+        }
+        else if(e.getActionCommand() == "Zapisz gre")
+        {
+            String nazwa = JOptionPane.showInputDialog("Podaj nazwę zapisu:");
+            File zapis = new File("zapisy/"+ nazwa);
+            try
+            {
+                PrintWriter zout = new PrintWriter(zapis);
+                swiat.zapisz(zout);
+                zout.close();
+            }
+            catch( IOException iex)
+            {
+                System.out.println("Blad zapisu gry.");
+            }
+            //Path sciezka = Paths.get("./zapisy/" + nazwa);
+//
+//            try {
+//                Files.createFile(sciezka);
+//            }catch(IOException iex)
+//            {
+//                iex.printStackTrace();
+//            }
+        }
+        else if(e.getActionCommand() == "Wczytaj gre")
+        {
+            String nazwa = JOptionPane.showInputDialog("Podaj nazwe zapisu:");
+            File odczyt = new File("zapisy/"+nazwa);
+            if(odczyt.exists())
+            {
+                try {
+                    Scanner in = new Scanner(odczyt);
+                    swiat.wczytaj(in);
+                    rozmiarPlanszy = swiat.getRozmiarSwiata();
+                }
+                catch(IOException iex)
+                {
+                    System.out.println("Blad wczytywania gry.");
                 }
             }
         }

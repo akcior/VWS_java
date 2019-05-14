@@ -6,12 +6,18 @@ import SwiatWitrualny.Roslina;
 import SwiatWitrualny.Swiat;
 
 import java.awt.*;
+import java.util.Scanner;
 
 public class Wilcze_Jagody extends Roslina {
 
     public Wilcze_Jagody(Swiat s, Point p)
     {
         super(s, Gatunki.WILCZE_JAGODY, p);
+    }
+
+    public Wilcze_Jagody(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.WILCZE_JAGODY,in);
     }
 
     @Override

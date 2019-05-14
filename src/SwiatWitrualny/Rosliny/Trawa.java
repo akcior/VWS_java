@@ -5,6 +5,7 @@ import SwiatWitrualny.Roslina;
 import SwiatWitrualny.Swiat;
 
 import java.awt.*;
+import java.util.Scanner;
 
 public class Trawa extends Roslina {
 
@@ -12,6 +13,11 @@ public class Trawa extends Roslina {
     {
         super(s, Gatunki.TRAWA,p);
 
+    }
+
+    public Trawa(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.TRAWA,in);
     }
 
     @Override

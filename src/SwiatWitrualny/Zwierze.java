@@ -1,17 +1,26 @@
 package SwiatWitrualny;
 
 import java.awt.*;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public abstract class Zwierze extends Organizm {
 
     protected double szansaUcieczki;
 
-    public Zwierze(Swiat swiat, Gatunki o, Point poz) {
+    public Zwierze(Swiat swiat, Gatunki g, Point poz) {
 
-        super(swiat, o, poz);
+        super(swiat, g, poz);
         szansaUcieczki = 0;
+    }
+
+    public Zwierze(Swiat s, Gatunki g, Scanner in) {
+
+        super(s,g,in);
+        szansaUcieczki =in.nextDouble();
+//        in.nextLine();
     }
 
     protected boolean zrobRuch() {
@@ -133,4 +142,10 @@ public abstract class Zwierze extends Organizm {
 
     abstract public String plec();
 
+    @Override
+    public void zapisz(PrintWriter out)
+    {
+        super.zapisz(out);
+        out.println(szansaUcieczki);
+    }
 }

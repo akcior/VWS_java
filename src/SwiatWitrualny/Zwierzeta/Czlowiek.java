@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Czlowiek extends Zwierze implements KeyListener {
 
@@ -31,6 +33,23 @@ public class Czlowiek extends Zwierze implements KeyListener {
         moc_pozostaly_czas_odnowy = 0;
         moc_pozostaly_czas_trwania = 0;
 
+    }
+
+    public Czlowiek(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.CZLOWIEK,in);
+        nastRuch.x = in.nextInt();
+//        in.nextLine();
+        nastRuch.y = in.nextInt();
+//        in.nextLine();
+        moc_czas_trwania = in.nextInt();
+//        in.nextLine();
+        moc_czas_odnowy = in.nextInt();
+//        in.nextLine();
+        moc_pozostaly_czas_trwania = in.nextInt();
+//        in.nextLine();
+        moc_pozostaly_czas_odnowy = in.nextInt();
+//        in.nextLine();
     }
 
     @Override
@@ -87,6 +106,18 @@ public class Czlowiek extends Zwierze implements KeyListener {
     public String plec()
     {
         return "";
+    }
+
+    @Override
+    public void zapisz(PrintWriter out)
+    {
+        super.zapisz(out);
+        out.println(nastRuch.x);
+        out.println(nastRuch.y);
+        out.println(moc_czas_trwania);
+        out.println(moc_czas_odnowy);
+        out.println(moc_pozostaly_czas_trwania);
+        out.println(moc_pozostaly_czas_odnowy);
     }
 
     @Override

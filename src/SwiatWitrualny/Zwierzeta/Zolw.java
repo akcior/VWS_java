@@ -6,6 +6,7 @@ import SwiatWitrualny.Swiat;
 import SwiatWitrualny.Zwierze;
 
 import java.awt.*;
+import java.util.Scanner;
 
 public class Zolw extends Zwierze {
 
@@ -14,6 +15,11 @@ public class Zolw extends Zwierze {
         super(s, Gatunki.ZOLW,p);
         sila=2;
         inicjatywa = 1;
+    }
+
+    public Zolw(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.ZOLW,in);
     }
 
     @Override

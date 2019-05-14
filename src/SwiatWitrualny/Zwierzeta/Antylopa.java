@@ -5,6 +5,7 @@ import SwiatWitrualny.Swiat;
 import SwiatWitrualny.Zwierze;
 
 import java.awt.*;
+import java.util.Scanner;
 
 public class Antylopa extends Zwierze {
 
@@ -15,6 +16,10 @@ public class Antylopa extends Zwierze {
         inicjatywa = 4;
         zasieg = 2;
         szansaUcieczki = 0.5;
+    }
+    public Antylopa(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.ANTYLOPA,in);
     }
 
     @Override

@@ -5,6 +5,7 @@ import SwiatWitrualny.Roslina;
 import SwiatWitrualny.Swiat;
 
 import java.awt.*;
+import java.util.Scanner;
 
 public class Mlecz extends Roslina {
 
@@ -12,6 +13,11 @@ public class Mlecz extends Roslina {
     {
         super(s, Gatunki.MLECZ,p);
 
+    }
+
+    public Mlecz(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.MLECZ,in);
     }
 
     @Override

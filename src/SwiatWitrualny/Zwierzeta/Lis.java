@@ -7,6 +7,7 @@ import SwiatWitrualny.Zwierze;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Lis extends Zwierze {
 
@@ -16,6 +17,12 @@ public class Lis extends Zwierze {
         sila = 3;
         inicjatywa = 9;
     }
+
+    public Lis(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.LIS,in);
+    }
+
     @Override
     protected Point znajdzKierunekDoRuchu()
     {

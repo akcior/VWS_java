@@ -16,7 +16,8 @@ public class PanelIU extends JPanel {
         przyciski.add(new JButton("Nastepna runda"));
         przyciski.add(new JButton("Uzyj supermocy"));
         przyciski.add(new JButton("Zapisz gre"));
-        przyciski.add(new JButton("Nowa Gra"));
+        przyciski.add(new JButton("Nowa gra"));
+        przyciski.add(new JButton("Wczytaj gre"));
 
 
         for(int i =0;i<przyciski.size();i++)
@@ -25,7 +26,7 @@ public class PanelIU extends JPanel {
             //przyciski.get(i).setSize(new Dimension(50,50));
         }
         setPreferredSize(rozmiarPanelu);
-        setLayout( new GridLayout(1,4));
+        setLayout( new GridLayout(1,5));
 
         for(JButton b : przyciski)
         {

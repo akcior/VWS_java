@@ -3,8 +3,10 @@ package SwiatWitrualny;
 import SwiatWitrualny.Rosliny.Barszcz_sosnowskiego;
 
 import java.awt.*;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public abstract class Organizm implements Comparable<Organizm> {
     protected Swiat swiat;
@@ -29,6 +31,28 @@ public abstract class Organizm implements Comparable<Organizm> {
         this.sila = 0;
         this.zasieg = 1;
         this.szansarozmn = 1;
+    }
+
+    public Organizm(Swiat s, Gatunki gat, Scanner in)
+    {
+        pozycja = new Point();
+        orgrand = new Random();
+
+        zyje = true;
+        swiat = s;
+        gatunek = gat;
+        pozycja.x = in.nextInt();
+        //in.nextLine();
+        pozycja.y = in.nextInt();
+       // in.nextLine();
+        wiek = in.nextInt();
+//        in.nextLine();
+        sila = in.nextInt();
+//        in.nextLine();
+        zasieg = in.nextInt();
+//        in.nextLine();
+        szansarozmn = in.nextDouble();
+//        in.nextLine();
     }
 
     public boolean czyZyje()
@@ -57,6 +81,7 @@ public abstract class Organizm implements Comparable<Organizm> {
     public Gatunki getGatunek() {
         return gatunek;
     }
+
     public int getWiek() { return wiek; }
 
     abstract public boolean akcja();
@@ -100,6 +125,17 @@ public abstract class Organizm implements Comparable<Organizm> {
     public void umrzyj() {
         zyje = false;
         swiat.usunOrganizm(this);
+    }
+
+    public void zapisz(PrintWriter out)
+    {
+        out.println(gatunek);
+        out.println(pozycja.x);
+        out.println(pozycja.y);
+        out.println(wiek);
+        out.println(sila);
+        out.println(zasieg);
+        out.println(szansarozmn);
     }
 
     @Override

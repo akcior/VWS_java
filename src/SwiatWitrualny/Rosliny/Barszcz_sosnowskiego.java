@@ -6,6 +6,7 @@ import SwiatWitrualny.Roslina;
 import SwiatWitrualny.Swiat;
 
 import java.awt.*;
+import java.util.Scanner;
 
 public class Barszcz_sosnowskiego extends Roslina {
 
@@ -14,6 +15,11 @@ public class Barszcz_sosnowskiego extends Roslina {
         super(s, Gatunki.BARSZCZ_SOSNOWSKIEGO, p);
         szansarozmn = 0.1;
 
+    }
+
+    public Barszcz_sosnowskiego(Swiat s, Scanner in)
+    {
+        super(s,Gatunki.BARSZCZ_SOSNOWSKIEGO,in);
     }
 
     @Override

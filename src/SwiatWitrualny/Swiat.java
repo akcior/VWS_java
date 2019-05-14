@@ -6,21 +6,22 @@ import SwiatWitrualny.Zwierzeta.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintWriter;
 import java.util.*;
 
-public class Swiat implements ActionListener {
+public class Swiat{
 
     private boolean istnieje;
     private Dimension rozmiarSwiata;
     private ArrayList<Organizm> organizmy;
     private Random rand;
-    public Narrator narrator;
+    public static Narrator narrator = new Narrator();
 
     public Swiat()
     {
         organizmy = new ArrayList<Organizm>();
         rand = new Random();
-        narrator = new Narrator();
+        //narrator = new Narrator();
         stworzOrganizm(Gatunki.WILK,new Point(0,0));
         stworzOrganizm(Gatunki.WILK,new Point(1,0));
         stworzOrganizm(Gatunki.OWCA, new Point(2,3));
@@ -222,14 +223,74 @@ public class Swiat implements ActionListener {
         else return new Point(0,0);
 
     }
+    public Dimension getRozmiarSwiata()
+    {
+        return rozmiarSwiata.getSize();
+    }
 
     public boolean Istnieje() {
         return istnieje;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e)
+    public void zapisz(PrintWriter out)
     {
+        out.println(rozmiarSwiata.width);
+        out.println(rozmiarSwiata.height);
+        for(Organizm o : organizmy)
+        {
+            o.zapisz(out);
+        }
+    }
 
+    public void wczytaj(Scanner in)
+    {
+        rozmiarSwiata.width = in.nextInt();
+        in.nextLine();
+        rozmiarSwiata.height = in.nextInt();
+        in.nextLine();
+        organizmy.clear();
+
+        while(in.hasNextLine())
+        {
+            String gatstring = in.nextLine();
+            Gatunki gat = Gatunki.valueOf(gatstring);
+            switch(gat)
+            {
+                case WILK:
+                    organizmy.add(new Wilk(this, in));
+                    break;
+                case OWCA:
+                    organizmy.add(new Owca(this,in));
+                    break;
+                case LIS:
+                    organizmy.add(new Lis(this,in));
+                    break;
+                case ZOLW:
+                    organizmy.add(new Zolw(this,in));
+                    break;
+                case ANTYLOPA:
+                    organizmy.add(new Antylopa(this,in));
+                    break;
+                case CZLOWIEK:
+                    organizmy.add(new Czlowiek(this,in));
+                    break;
+                case TRAWA:
+                    organizmy.add(new Trawa(this, in));
+                    break;
+                case MLECZ:
+                    organizmy.add(new Mlecz(this,in));
+                    break;
+                case GUARANA:
+                    organizmy.add(new Guarana(this,in));
+                    break;
+                case BARSZCZ_SOSNOWSKIEGO:
+                    organizmy.add(new Barszcz_sosnowskiego(this, in));
+                    break;
+                case WILCZE_JAGODY:
+                    organizmy.add(new Wilcze_Jagody(this,in));
+                    break;
+            }
+
+        }
     }
 }
