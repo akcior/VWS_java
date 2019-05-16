@@ -16,14 +16,12 @@ public class Wilk extends Zwierze {
         inicjatywa = 5;
     }
 
-    public Wilk(Swiat s, Scanner in)
-    {
-        super(s,Gatunki.WILK,in);
+    public Wilk(Swiat s, Scanner in) {
+        super(s, Gatunki.WILK, in);
     }
 
     @Override
-    public String plec()
-    {
+    public String plec() {
         return "";
     }
 }

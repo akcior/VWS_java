@@ -10,35 +10,32 @@ import java.util.Scanner;
 
 public class Barszcz_sosnowskiego extends Roslina {
 
-    public Barszcz_sosnowskiego(Swiat s, Point p)
-    {
+    public Barszcz_sosnowskiego(Swiat s, Point p) {
         super(s, Gatunki.BARSZCZ_SOSNOWSKIEGO, p);
         szansarozmn = 0.1;
 
     }
 
-    public Barszcz_sosnowskiego(Swiat s, Scanner in)
-    {
-        super(s,Gatunki.BARSZCZ_SOSNOWSKIEGO,in);
+    public Barszcz_sosnowskiego(Swiat s, Scanner in) {
+        super(s, Gatunki.BARSZCZ_SOSNOWSKIEGO, in);
+        sila =10;
     }
 
     @Override
-    public boolean akcja()
-    {
+    public boolean akcja() {
         super.akcja();
-        zabijWszystkichWokol();
+        zabijWszystkichWokol(true);
         return true;
     }
+
     @Override
-    public boolean kolizja(Organizm o)
-    {
+    public boolean kolizja(Organizm o) {
         umrzyj();
         return false;
     }
 
     @Override
-    public String plec()
-    {
+    public String plec() {
         return "";
     }
 

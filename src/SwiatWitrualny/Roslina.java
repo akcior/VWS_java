@@ -10,14 +10,13 @@ public abstract class Roslina extends Organizm {
         szansarozmn = 0.3;
     }
 
-    public Roslina(Swiat s,Gatunki g, Scanner in)
-    {
-        super(s,g,in);
+    public Roslina(Swiat s, Gatunki g, Scanner in) {
+        super(s, g, in);
     }
 
     @Override
     public boolean akcja() {
-        if(wiek >1) {
+        if (wiek > 1) {
             if (sprobujSieRozmnozyc()) {
                 rozmnozSie();
             }
@@ -29,6 +28,7 @@ public abstract class Roslina extends Organizm {
     @Override
     public boolean kolizja(Organizm o) {
         umrzyj();
+        /*return true oznacza ze organizm o przezyl*/
         return true;
     }
 

@@ -1,7 +1,5 @@
 package SwiatWitrualny;
 
-import SwiatWitrualny.Rosliny.Barszcz_sosnowskiego;
-
 import java.awt.*;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -33,8 +31,8 @@ public abstract class Organizm implements Comparable<Organizm> {
         this.szansarozmn = 1;
     }
 
-    public Organizm(Swiat s, Gatunki gat, Scanner in)
-    {
+    /*konstruktor tworzacy organizm z pliku*/
+    public Organizm(Swiat s, Gatunki gat, Scanner in) {
         pozycja = new Point();
         orgrand = new Random();
 
@@ -55,10 +53,10 @@ public abstract class Organizm implements Comparable<Organizm> {
         in.nextLine();
     }
 
-    public boolean czyZyje()
-    {
+    public boolean czyZyje() {
         return zyje;
     }
+
     public Point getPozycja() {
         return pozycja;
     }
@@ -82,44 +80,51 @@ public abstract class Organizm implements Comparable<Organizm> {
         return gatunek;
     }
 
-    public int getWiek() { return wiek; }
-    public void addWiek(int w) { wiek+= w;}
+    public int getWiek() {
+        return wiek;
+    }
+
+    public void addWiek(int w) {
+        wiek += w;
+    }
 
     abstract public boolean akcja();
 
     abstract protected boolean kolizja(Organizm o);
 
-    protected boolean sprobujSieRozmnozyc() { return orgrand.nextDouble() < szansarozmn; }
+    protected boolean sprobujSieRozmnozyc() {
+        return orgrand.nextDouble() < szansarozmn;
+    }
 
     protected boolean zablokujAtak(Organizm o) {
-       return false;
+        return false;
     }
 
     protected void rozmnozSie() {
-        Point p = swiat.getLosowyWolnyKierunkWokol(pozycja);
-        if(!p.equals(new Point(0,0)))
-        {
-            p.translate(pozycja.x,pozycja.y);
-            swiat.stworzOrganizm(gatunek,p);
+        Point p = swiat.getLosowyWolnyKierunekWokol(pozycja);
+        if (!p.equals(new Point(0, 0))) {
+            p.translate(pozycja.x, pozycja.y);
+            swiat.stworzOrganizm(gatunek, p);
             swiat.narrator.orgRozmnozylSie(this);
         }
     }
 
-    public boolean silniejszyOd(Organizm o)
-    {
+    public boolean silniejszyOd(Organizm o) {
         return sila >= o.getSila();
     }
 
-    public void zabijWszystkichWokol()
-    {
+    public void zabijWszystkichWokol(boolean tylkoRosliny) {
         ArrayList<Organizm> orgs = swiat.getWszystkieOrganizmyWokol(pozycja);
-        for(Organizm o : orgs)
-        {
-            if(o.getGatunek().equals(gatunek))
+        for (Organizm o : orgs) {
+            if (o.getGatunek().equals(gatunek))
                 continue;
-
+            if(tylkoRosliny)
+            {
+                if(o instanceof Roslina)
+                    continue;
+            }
             o.umrzyj();
-            swiat.narrator.orgUmarlPrzezOrg(o,this);
+            swiat.narrator.orgUmarlPrzezOrg(o, this);
         }
     }
 
@@ -128,8 +133,7 @@ public abstract class Organizm implements Comparable<Organizm> {
         swiat.usunOrganizm(this);
     }
 
-    public void zapisz(PrintWriter out)
-    {
+    public void zapisz(PrintWriter out) {
         out.println(gatunek);
         out.println(pozycja.x);
         out.println(pozycja.y);
@@ -142,13 +146,16 @@ public abstract class Organizm implements Comparable<Organizm> {
     @Override
     public int compareTo(Organizm o) {
         int compareini = this.getInicjatywa();
+        /*jesli inicjatywy organizmow sa takie same porownojemy wiek*/
+        if (compareini == o.getInicjatywa())
+            return getWiek() - o.getWiek();
         return compareini - o.getInicjatywa(); //rosnaco
     }
 
 
     @Override
     public String toString() {
-        return gatunek.name().charAt(0)+gatunek.name().substring(1).toLowerCase() + " na pozycji X:" + pozycja.x + " Y:"+pozycja.y;
+        return gatunek.name().charAt(0) + gatunek.name().substring(1).toLowerCase() + " na pozycji X:" + pozycja.x + " Y:" + pozycja.y;
     }
 
     abstract public String plec();

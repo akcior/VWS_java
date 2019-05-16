@@ -3,7 +3,6 @@ package SwiatWitrualny;
 import java.awt.*;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Zwierze extends Organizm {
@@ -18,8 +17,8 @@ public abstract class Zwierze extends Organizm {
 
     public Zwierze(Swiat s, Gatunki g, Scanner in) {
 
-        super(s,g,in);
-        szansaUcieczki =in.nextDouble();
+        super(s, g, in);
+        szansaUcieczki = in.nextDouble();
         in.nextLine();
     }
 
@@ -29,18 +28,20 @@ public abstract class Zwierze extends Organizm {
             return false;
 
         ArrayList<Organizm> o;
+        /*sprawdzenie czy na pozycji nastepnej jest jakis organizm*/
         try {
             kier.translate(pozycja.x, pozycja.y);
             o = swiat.getOrganizmNaPozycji(kier);
 
-        }catch(IndexOutOfBoundsException inex)
-        {
+        } catch (IndexOutOfBoundsException inex) {
             return false;
         }
+
+        /*jesli nastepna pozycja jest wolna zwierze sie tam przemieszcza*/
         if (o.size() == 0) {
             pozycja.move(kier.x, kier.y);
             return true;
-        } else {
+        } else { /* jesli nie, zostaje wywolana kolizja*/
             if (kolizja(o.get(0))) {
                 pozycja.move(kier.x, kier.y);
                 return true;
@@ -52,33 +53,33 @@ public abstract class Zwierze extends Organizm {
     }
 
     protected Point znajdzKierunekDoRuchu() {
-        boolean sukces = false;
-        Point kier = new Point(0, 0);
         ArrayList<Organizm> o = new ArrayList<Organizm>();
-        Point npoz;
-        while (!sukces) {
-            npoz = pozycja.getLocation();
-            kier = swiat.getLosowyKierunek();
-            npoz.translate(kier.x, kier.y);
-            try {
-                o = swiat.getOrganizmNaPozycji(npoz);
-                sukces = true;
-            } catch (IndexOutOfBoundsException e) {
-                sukces = false;
-            }
+        ArrayList<Point> k = new ArrayList<>();
 
+        /*znalezienie takiego kierunku aby zwierze nie znalazlo sie poza plansza*/
+        Dimension rozmiarSwiata = swiat.getRozmiarSwiata();
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                if (pozycja.x + i >= 0 && pozycja.x + i < rozmiarSwiata.width &&
+                        pozycja.y + j >= 0 && pozycja.y + j < rozmiarSwiata.height &&
+                        i * j == 0 && (i!=0||j!=0))
+                    k.add(new Point(i, j));
+            }
         }
-        return kier;
+        if (k.size() > 0) {
+            return k.get(Math.abs(orgrand.nextInt() % k.size()));
+        }
+        return new Point(0, 0);
     }
 
     public boolean zrobUnik() {
 
-        if(orgrand.nextDouble() < szansaUcieczki)
-        {
-            Point p = swiat.getLosowyWolnyKierunkWokol(pozycja);
-            if(p.equals( new Point(0,0)))
+        if (orgrand.nextDouble() < szansaUcieczki) {
+            Point p = swiat.getLosowyWolnyKierunekWokol(pozycja);
+            /*jesli p == 0,0 oznacza to ze nie znaleziono wolnego kierunki, organizm wiec nie ma gdzie uciec*/
+            if (p.equals(new Point(0, 0)))
                 return false;
-            pozycja.translate(p.x,p.y);
+            pozycja.translate(p.x, p.y);
             return true;
         }
         return false;
@@ -105,6 +106,8 @@ public abstract class Zwierze extends Organizm {
 
         if (org instanceof Zwierze) {
             Zwierze o = (Zwierze) org;
+
+            /*jesli ten sam gatunek zwierze zostaje na swojej pozycji i rozmnaza sie*/
             if (gatunek.equals(o.getGatunek())) {
                 if (wiek > 5 && o.getWiek() > 5) {
                     if (sprobujSieRozmnozyc()) {
@@ -117,7 +120,7 @@ public abstract class Zwierze extends Organizm {
                     if (!o.zrobUnik()) {
                         if (!o.zablokujAtak(this)) {
                             o.umrzyj();
-                            swiat.narrator.orgUmarlPrzezOrg(o,this);
+                            swiat.narrator.orgUmarlPrzezOrg(o, this);
                             return true;
                         }
                         return false;
@@ -125,19 +128,20 @@ public abstract class Zwierze extends Organizm {
                     return true;
                 } else if (!zablokujAtak(o)) {
                     zyje = false;
-                    swiat.narrator.orgUmarlPrzezOrg(this,o);
+                    swiat.narrator.orgUmarlPrzezOrg(this, o);
                     return false;
                 }
 
             }
         } else if (org instanceof Roslina) {
             Roslina r = (Roslina) org;
+            /*kolizja roslin moze zmieniac parametry zwierzecia ktore go zjadlo*/
             if (r.kolizja(this)) {
-                swiat.narrator.orgUmarlPrzezOrg(r,this);
+                swiat.narrator.orgUmarlPrzezOrg(r, this);
                 return true;
             } else {
                 zyje = false;
-                swiat.narrator.orgUmarlPrzezOrg(this,r);
+                swiat.narrator.orgUmarlPrzezOrg(this, r);
                 return false;
             }
         }
@@ -149,8 +153,7 @@ public abstract class Zwierze extends Organizm {
     abstract public String plec();
 
     @Override
-    public void zapisz(PrintWriter out)
-    {
+    public void zapisz(PrintWriter out) {
         super.zapisz(out);
         out.println(szansaUcieczki);
     }

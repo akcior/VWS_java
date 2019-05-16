@@ -8,8 +8,7 @@ public class PanelIU extends JPanel {
     private Dimension rozmiarPanelu;
     private ArrayList<JButton> przyciski;
 
-    public PanelIU(Dimension rozmiar, PanelPlanszy plansza)
-    {
+    public PanelIU(Dimension rozmiar, PanelPlanszy plansza) {
         super();
         przyciski = new ArrayList<JButton>();
         rozmiarPanelu = rozmiar;
@@ -20,21 +19,15 @@ public class PanelIU extends JPanel {
         przyciski.add(new JButton("Wczytaj gre"));
 
 
-        for(int i =0;i<przyciski.size();i++)
-        {
+        for (int i = 0; i < przyciski.size(); i++) {
             przyciski.get(i).addActionListener(plansza);
-            //przyciski.get(i).setSize(new Dimension(50,50));
         }
         setPreferredSize(rozmiarPanelu);
-        setLayout( new GridLayout(1,5));
+        setLayout(new GridLayout(1, 5));
 
-        for(JButton b : przyciski)
-        {
+        for (JButton b : przyciski) {
             add(b);
         }
-        //pack();
-        //revalidate();
-        //repaint();
 
     }
 

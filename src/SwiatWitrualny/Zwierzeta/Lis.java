@@ -11,49 +11,36 @@ import java.util.Scanner;
 
 public class Lis extends Zwierze {
 
-    public Lis(Swiat swiat, Point poz)
-    {
-        super(swiat, Gatunki.LIS,poz);
+    public Lis(Swiat swiat, Point poz) {
+        super(swiat, Gatunki.LIS, poz);
         sila = 3;
         inicjatywa = 9;
     }
 
-    public Lis(Swiat s, Scanner in)
-    {
-        super(s,Gatunki.LIS,in);
+    public Lis(Swiat s, Scanner in) {
+        super(s, Gatunki.LIS, in);
     }
 
     @Override
-    protected Point znajdzKierunekDoRuchu()
-    {
-
+    protected Point znajdzKierunekDoRuchu() {
         Point k;
-        k = swiat.getLosowyWolnyKierunkWokol(pozycja);
-
-        if(!k.equals(new Point(0,0))) {
-            return k;
-        }
-
-        ArrayList<Organizm> o = swiat.getWszystkieOrganizmyWokol(pozycja);
-
-        for(Organizm org : o)
-        {
-            if(silniejszyOd(org))
-            {
-                k = org.getPozycja();
-                k.translate(-pozycja.x,-pozycja.y);
-                if(k.x*k.y == 0)
+        /*jesli po 4 probach nie znajdzie odpowiedniej pozycji, nie porusza sie*/
+        for (int i = 0; i < 4; i++) {
+            k = super.znajdzKierunekDoRuchu();
+            ArrayList<Organizm> o = swiat.getOrganizmNaPozycji(pozycja);
+            if (o.size() == 0) {
+                return k;
+            } else {
+                if (silniejszyOd(o.get(0)) || o.get(0).getGatunek().equals(Gatunki.LIS)) {
                     return k;
+                }
             }
         }
-        return new Point(0,0);
-
-
+        return new Point(0, 0);
     }
 
     @Override
-    public String plec()
-    {
+    public String plec() {
         return "";
     }
 

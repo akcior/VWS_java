@@ -16,14 +16,12 @@ public class Owca extends Zwierze {
         inicjatywa = 4;
     }
 
-    public Owca(Swiat s, Scanner in)
-    {
-        super(s,Gatunki.OWCA,in);
+    public Owca(Swiat s, Scanner in) {
+        super(s, Gatunki.OWCA, in);
     }
 
     @Override
-    public String plec()
-    {
+    public String plec() {
         return "a";
     }
 }
